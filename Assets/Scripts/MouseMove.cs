@@ -48,7 +48,18 @@ public class MouseMove : EventTrigger
         }
     }
 
-    private void Empty() { gameObject.tag = "CupF"; } //тег шоби обєкт не тепався в зону без участі миші
+    private void Empty() 
+    {
+        if (CompareTag("CupT")) 
+        { 
+            gameObject.tag = "CupF"; //тег шоби обєкт не тепався в зону без участі миші
+        }
+        else 
+        {
+            gameObject.tag = "CupAmericano";
+        }
+            
+    } 
 
     public override void OnPointerDown(PointerEventData eventData) //коли мишку нажали на обєкті
     {
@@ -79,7 +90,15 @@ public class MouseMove : EventTrigger
         rb.velocity = throwForce;
         rb.angularVelocity = Random.Range(-100f, 100f);
 
-        gameObject.tag = "CupT"; // включеня тегу
-        Invoke("Empty", 0.1f);
+        if (!CompareTag("CupAmericano"))
+        {
+            gameObject.tag = "CupT"; // включеня тегу
+            Invoke("Empty", 0.1f);
+        }
+        else
+        {
+            gameObject.tag = "CupAmericanoT"; // включеня тегу
+            Invoke("Empty", 0.1f);
+        }
     }
 }
